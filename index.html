@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <title>KYRO — Play your way</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="KYRO home"><span class="brand-mark">K</span><span>KYRO</span></a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-link active" data-view="home"><span>⌂</span> Overview</button>
+        <button class="nav-link" data-view="games"><span>▦</span> Game library</button>
+        <button class="nav-link" data-view="music"><span>♫</span> Music</button>
+        <button class="nav-link" data-view="themes"><span>◐</span> Appearance</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="profile-mini"><div class="avatar" id="sideAvatar">P</div><div><strong id="sideName">Player</strong><small>Local profile</small></div></div>
+        <p class="sidebar-note">Your games. Your music. Your space.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">K</span> KYRO</div>
+        <div class="breadcrumbs" id="crumb">Overview <span>/</span> Home</div>
+        <div class="top-actions">
+          <button class="icon-button" id="profileOpen" title="Edit profile" aria-label="Edit profile">☺</button>
+          <button class="avatar small-avatar" id="topAvatar" title="Your profile">P</button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-home">
+        <div class="welcome-row">
+          <div><p class="eyebrow">YOUR SPACE</p><h1>Good to see you, <span id="welcomeName">Player</span>.</h1><p class="muted">Pick up where you left off, or find something new.</p></div>
+          <div class="date-chip"><span class="live-dot"></span> Ready when you are</div>
+        </div>
+        <section class="hero-panel">
+          <div class="hero-copy"><p class="eyebrow">THE KYRO LIBRARY</p><h2>One place for<br>your next break.</h2><p>Browse quick games, keep your favorites close, and bring your own Spotify playlists along.</p><button class="primary-button" data-go="games">Browse games <span>→</span></button></div>
+          <div class="hero-art" aria-hidden="true"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="hero-grid"></div><div class="hero-k">K</div></div>
+        </section>
+        <div class="section-heading"><div><p class="eyebrow">TAKE YOUR PICK</p><h2>Explore</h2></div><button class="text-button" data-go="games">View library →</button></div>
+        <div class="quick-grid">
+          <button class="quick-card blue" data-go="games"><span class="quick-icon">▦</span><strong>Game library</strong><small>Browse the collection</small></button>
+          <button class="quick-card violet" data-go="music"><span class="quick-icon">♫</span><strong>KYRO Music</strong><small>Connect your Spotify</small></button>
+          <button class="quick-card green" data-go="themes"><span class="quick-icon">◐</span><strong>Make it yours</strong><small>Choose a theme</small></button>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">A FEW QUICK PICKS</p><h2>In the library</h2></div></div>
+        <div class="game-grid compact" id="homeGames"></div>
+      </section>
+
+      <section class="view" id="view-games">
+        <div class="page-heading"><p class="eyebrow">THE COLLECTION</p><h1>Game library</h1><p class="muted">Find a quick game. Save the ones you like.</p></div>
+        <div class="library-tools"><label class="search-box"><span>⌕</span><input id="gameSearch" type="search" placeholder="Search games..." autocomplete="off"></label><div class="filter-row" id="filters"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Arcade">Arcade</button><button class="filter" data-filter="Puzzle">Puzzle</button><button class="filter" data-filter="Casual">Casual</button></div></div>
+        <div class="game-grid" id="allGames"></div>
+        <p class="footnote">The built-in games work directly in KYRO. Other game titles can be added when you have a legitimate playable link or permission to embed them.</p>
+      </section>
+
+      <section class="view" id="view-music">
+        <div class="page-heading"><p class="eyebrow">YOUR SOUNDTRACK</p><h1>KYRO Music</h1><p class="muted">Bring a Spotify track, album, or playlist into your space.</p></div>
+        <div class="music-layout">
+          <div class="panel music-connect">
+            <div class="spotify-mark">●</div><h2>Connect with Spotify</h2>
+            <p class="muted">Search for music on Spotify, then paste a Spotify link here to load its supported player.</p>
+            <a class="spotify-button" href="https://open.spotify.com/search" target="_blank" rel="noopener noreferrer">Search Spotify <span>↗</span></a>
+            <label class="field-label" for="spotifyUrl">Spotify link</label>
+            <input class="text-input" id="spotifyUrl" type="url" placeholder="https://open.spotify.com/playlist/..." spellcheck="false">
+            <button class="primary-button full" id="loadSpotify">Load in KYRO</button>
+            <p class="fine-print">KYRO does not collect your Spotify password. Playback and some features depend on Spotify, your account, browser settings, and Spotify's availability.</p>
+          </div>
+          <div class="panel player-panel"><div class="player-top"><div><p class="eyebrow">NOW IN KYRO</p><h2>Your player</h2></div><span class="player-status" id="spotifyStatus">Waiting for a link</span></div>
+            <div id="spotifyEmpty" class="spotify-empty"><div class="music-disc">♫</div><strong>Nothing playing yet</strong><span>Load a Spotify track, album, or playlist to get started.</span></div>
+            <div id="spotifyFrameWrap" class="spotify-frame-wrap hidden"><iframe id="spotifyFrame" title="Spotify player" src="" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-themes">
+        <div class="page-heading"><p class="eyebrow">SET THE MOOD</p><h1>Appearance</h1><p class="muted">A few different looks for your KYRO space.</p></div>
+        <div class="panel theme-panel"><h2>Choose a theme</h2><p class="muted">Your choice is saved on this device.</p><div class="theme-grid">
+          <button class="theme-option" data-theme="blue"><span class="swatch swatch-blue"></span><strong>Blue Night</strong><small>Deep navy · Blue</small></button>
+          <button class="theme-option" data-theme="purple"><span class="swatch swatch-purple"></span><strong>Purple Haze</strong><small>Charcoal · Violet</small></button>
+          <button class="theme-option" data-theme="red"><span class="swatch swatch-red"></span><strong>Redline</strong><small>Dark · Red</small></button>
+          <button class="theme-option" data-theme="green"><span class="swatch swatch-green"></span><strong>Matrix</strong><small>Forest · Green</small></button>
+          <button class="theme-option" data-theme="light"><span class="swatch swatch-light"></span><strong>Paper</strong><small>Light · Slate</small></button>
+        </div><div class="custom-accent"><label for="accentColor">Custom accent color</label><input type="color" id="accentColor" value="#579bff"><button class="secondary-button" id="resetAccent">Reset accent</button></div></div>
+      </section>
+
+      <footer class="footer"><span>KYRO</span><span>Made for your downtime.</span></footer>
+    </main>
+  </div>
+
+  <dialog id="profileDialog" class="dialog">
+    <form method="dialog" id="profileForm"><div class="dialog-head"><div><p class="eyebrow">YOUR SPACE</p><h2>Edit profile</h2></div><button class="close-button" value="cancel" aria-label="Close">×</button></div>
+      <label class="field-label" for="displayName">Display name</label><input class="text-input" id="displayName" maxlength="20" placeholder="Player">
+      <label class="field-label" for="avatarLetter">Avatar initial</label><input class="text-input" id="avatarLetter" maxlength="2" placeholder="P">
+      <div class="dialog-actions"><button class="secondary-button" value="cancel">Cancel</button><button class="primary-button" id="saveProfile" value="default">Save profile</button></div>
+      <p class="fine-print">This starter profile is saved on this device. Online accounts can be added separately.</p>
+    </form>
+  </dialog>
+
+  <section id="gameOverlay" class="game-overlay hidden" aria-modal="true" role="dialog" aria-label="Game">
+    <div class="game-topbar"><button class="secondary-button" id="closeGame">← Back to library</button><strong id="gameTitle">Game</strong><button class="icon-button" id="restartGame" title="Restart">↻</button></div>
+    <div class="game-stage" id="gameStage"></div>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>
